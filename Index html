@@ -1,0 +1,351 @@
+```html
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fluffy Dough | Handcrafted Bomboloni & Gourmet Donuts</title>
+    
+    <!-- Google Fonts: Fredoka (Playful Bakery Headings) & Poppins (Clean Body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom Tailwind Configuration for Fluffy Dough Palette -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: '#FFF9F5',
+                        blush: '#FDE8EC',
+                        blushDark: '#F7D1D8',
+                        berry: '#E06D83',
+                        berryHover: '#C9566C',
+                        choco: '#4A2C2A',
+                        chocoLight: '#7A5451',
+                        caramel: '#D97742',
+                    },
+                    fontFamily: {
+                        heading: ['Fredoka', 'sans-serif'],
+                        body: ['Poppins', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'soft': '0 10px 30px -5px rgba(74, 44, 42, 0.08)',
+                        'card': '0 8px 24px rgba(224, 109, 131, 0.12)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #FFF9F5;
+            color: #4A2C2A;
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FFF9F5;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #F7D1D8;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #E06D83;
+        }
+
+        /* Subtle Floating Animation for Hero Visual */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(2deg); }
+        }
+        .animate-float {
+            animation: float 4.5s ease-in-out infinite;
+        }
+
+        /* Hide scrollbar for category pills on mobile */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-blushDark selection:text-choco">
+
+    <!-- ==================== STICKY TOP NAVBAR ==================== -->
+    <header class="sticky top-0 z-40 bg-cream/90 backdrop-blur-md border-b border-blushDark/50 transition-all">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-2.5 group">
+                <div class="w-10 h-10 rounded-2xl bg-blush flex items-center justify-center text-berry text-xl shadow-sm group-hover:scale-105 transition-transform">
+                    <i class="fa-solid fa-cookie-bite"></i>
+                </div>
+                <div>
+                    <h1 class="font-heading text-2xl font-bold tracking-tight text-choco leading-none">
+                        Fluffy <span class="text-berry">Dough</span>
+                    </h1>
+                    <p class="text-[11px] font-medium text-chocoLight tracking-wide">ARTISANAL BAKERY</p>
+                </div>
+            </a>
+
+            <!-- Right Nav Actions -->
+            <div class="flex items-center gap-3 sm:gap-4">
+                <a id="nav-insta-link" href="https://instagram.com/fluffydough" target="_blank" rel="noopener noreferrer" 
+                   class="hidden sm:flex items-center gap-1.5 text-sm font-medium text-chocoLight hover:text-berry transition-colors px-3 py-2 rounded-full hover:bg-blush/50">
+                    <i class="fa-brands fa-instagram text-lg"></i>
+                    <span>@fluffydough</span>
+                </a>
+
+                <!-- Cart Trigger Button -->
+                <button onclick="toggleCart(true)" aria-label="Open Cart"
+                        class="relative flex items-center gap-2 bg-choco hover:bg-berry text-cream px-4 py-2.5 rounded-full font-medium text-sm shadow-soft transition-all active:scale-95">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span>Cart</span>
+                    <span id="header-cart-badge" 
+                          class="bg-berry text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center transition-transform">
+                        0
+                    </span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==================== HERO SECTION ==================== -->
+    <section class="relative overflow-hidden bg-gradient-to-b from-blush/60 via-blush/30 to-cream pt-8 pb-12 sm:py-16">
+        <!-- Decorative Background Blobs -->
+        <div class="absolute -top-20 -right-20 w-72 h-72 bg-blushDark/40 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute top-32 -left-20 w-64 h-64 bg-caramel/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <!-- Left Text Content -->
+                <div class="lg:col-span-7 text-center lg:text-left space-y-5">
+                    <div class="inline-flex items-center gap-2 bg-white/80 border border-blushDark px-4 py-1.5 rounded-full text-xs sm:text-sm font-medium text-berry shadow-sm">
+                        <span>✨ 100% Freshly Baked to Order</span>
+                        <span>•</span>
+                        <span>Eggless Options Available</span>
+                    </div>
+                    
+                    <h2 class="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-choco leading-[1.15]">
+                        Freshly Baked & Handcrafted <span class="text-berry">Donuts</span> & <span class="text-caramel">Bomboloni</span>
+                    </h2>
+                    
+                    <p class="text-chocoLight text-sm sm:text-base max-w-xl mx-auto lg:mx-0 leading-relaxed">
+                        Pillowy soft brioche dough, slow-fermented for ultimate fluffiness, and generously coated or piped with homemade chocolate, Nutella, and Lotus Biscoff.
+                    </p>
+
+                    <div class="flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-2">
+                        <a href="#menu-section" 
+                           class="bg-berry hover:bg-berryHover text-white font-medium px-7 py-3.5 rounded-full shadow-card transition-all active:scale-95 flex items-center gap-2">
+                            <span>Explore Menu</span>
+                            <i class="fa-solid fa-arrow-down text-xs"></i>
+                        </a>
+                        <a id="hero-insta-link" href="https://instagram.com/fluffydough" target="_blank" rel="noopener noreferrer"
+                           class="bg-white hover:bg-blush/50 text-choco border border-blushDark font-medium px-6 py-3.5 rounded-full transition-all flex items-center gap-2">
+                            <i class="fa-brands fa-instagram text-berry text-lg"></i>
+                            <span>Follow on Insta</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Hero Image Card -->
+                <div class="lg:col-span-5 flex justify-center">
+                    <div class="relative w-72 h-72 sm:w-88 sm:h-88 md:w-96 md:h-96">
+                        <div class="absolute inset-0 bg-blushDark rounded-[2.5rem] rotate-6 scale-95"></div>
+                        <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=800&q=80" 
+                             onerror="this.src='https://placehold.co/600x600/FCE8EB/4A2C2A?text=Fluffy+Dough+Bakery'"
+                             alt="Delicious Glazed Donuts and Bomboloni" 
+                             class="relative w-full h-full object-cover rounded-[2.5rem] shadow-soft border-4 border-white animate-float">
+                        
+                        <!-- Floating Review/Tag Pill -->
+                        <div class="absolute -bottom-4 -left-4 sm:-left-6 bg-white px-4 py-3 rounded-2xl shadow-soft border border-blush flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-blush flex items-center justify-center text-xl">
+                                🍩
+                            </div>
+                            <div>
+                                <p class="font-heading font-bold text-choco text-sm">Small Batch Baked</p>
+                                <p class="text-xs text-chocoLight">Made fresh every morning</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== MENU & CATALOG SECTION ==================== -->
+    <main id="menu-section" class="max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+        
+        <!-- Section Header & Category Filter Tabs -->
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
+            <div>
+                <span class="text-xs font-semibold uppercase tracking-wider text-berry">Fresh Out The Fryer</span>
+                <h3 class="font-heading text-3xl sm:text-4xl font-bold text-choco mt-1">Our Sweet Menu</h3>
+            </div>
+
+            <!-- Category Filter Pills -->
+            <div id="category-tabs" class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">
+                <button onclick="filterCategory('All')" data-cat="All"
+                        class="cat-btn active px-5 py-2.5 rounded-full text-sm font-medium whitespace-nowrap transition-all bg-choco text-white shadow-sm">
+                    All Treats
+                </button>
+                <button onclick="filterCategory('Donuts')" data-cat="Donuts"
+                        class="cat-btn px-5 py-2.5 rounded-full text-sm font-medium whitespace-nowrap transition-all bg-blush/70 text-choco hover:bg-blush">
+                    Donuts
+                </button>
+                <button onclick="filterCategory('Bomboloni')" data-cat="Bomboloni"
+                        class="cat-btn px-5 py-2.5 rounded-full text-sm font-medium whitespace-nowrap transition-all bg-blush/70 text-choco hover:bg-blush">
+                    Bomboloni
+                </button>
+                <button onclick="filterCategory('Assorted Boxes')" data-cat="Assorted Boxes"
+                        class="cat-btn px-5 py-2.5 rounded-full text-sm font-medium whitespace-nowrap transition-all bg-blush/70 text-choco hover:bg-blush">
+                    Assorted Boxes 🎁
+                </button>
+            </div>
+        </div>
+
+        <!-- Product Grid (Populated via JavaScript) -->
+        <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
+            <!-- Cards will be dynamically injected here -->
+        </div>
+
+        <!-- How to Order Banner -->
+        <section class="mt-16 bg-blush/60 border border-blushDark/70 rounded-3xl p-6 sm:p-10">
+            <div class="text-center max-w-2xl mx-auto mb-8">
+                <h4 class="font-heading text-2xl sm:text-3xl font-bold text-choco">How to Order via Instagram DM</h4>
+                <p class="text-sm text-chocoLight mt-2">Quick, personal, and hassle-free ordering directly with our kitchen!</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white/90 p-5 rounded-2xl text-center shadow-sm">
+                    <div class="w-11 h-11 rounded-full bg-blush text-berry font-heading font-bold text-lg flex items-center justify-center mx-auto mb-3">1</div>
+                    <h5 class="font-heading font-semibold text-choco">Pick Your Favourites</h5>
+                    <p class="text-xs text-chocoLight mt-1 leading-relaxed">Add your favourite bomboloni, donuts, or gift boxes to your cart.</p>
+                </div>
+                <div class="bg-white/90 p-5 rounded-2xl text-center shadow-sm">
+                    <div class="w-11 h-11 rounded-full bg-blush text-berry font-heading font-bold text-lg flex items-center justify-center mx-auto mb-3">2</div>
+                    <h5 class="font-heading font-semibold text-choco">Click Order on Insta</h5>
+                    <p class="text-xs text-chocoLight mt-1 leading-relaxed">We automatically copy your formatted order summary to your clipboard.</p>
+                </div>
+                <div class="bg-white/90 p-5 rounded-2xl text-center shadow-sm">
+                    <div class="w-11 h-11 rounded-full bg-blush text-berry font-heading font-bold text-lg flex items-center justify-center mx-auto mb-3">3</div>
+                    <h5 class="font-heading font-semibold text-choco">Paste & Send DM</h5>
+                    <p class="text-xs text-chocoLight mt-1 leading-relaxed">Paste the message in our Instagram chat to confirm delivery time & payment!</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="bg-choco text-cream/90 py-10 mt-10">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
+            <div>
+                <div class="flex items-center justify-center sm:justify-start gap-2">
+                    <i class="fa-solid fa-cookie-bite text-berry text-xl"></i>
+                    <span class="font-heading text-xl font-bold text-white">Fluffy Dough</span>
+                </div>
+                <p class="text-xs text-cream/70 mt-1.5">Handcrafted Bomboloni & Gourmet Donuts • Baked Fresh Daily</p>
+            </div>
+            
+            <div class="flex items-center gap-4">
+                <a id="footer-insta-link" href="https://instagram.com/fluffydough.in" target="_blank" rel="noopener noreferrer"
+                   class="bg-white/10 hover:bg-berry text-white px-4 py-2 rounded-full text-sm font-medium transition-colors flex items-center gap-2">
+                    <i class="fa-brands fa-instagram"></i>
+                    <span id="footer-insta-handle">@fluffydough.in</span>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==================== FLOATING MOBILE CART BAR ==================== -->
+    <div id="floating-cart-bar" class="fixed bottom-4 left-4 right-4 z-30 md:hidden transition-all duration-300 translate-y-28 opacity-0 pointer-events-none">
+        <button onclick="toggleCart(true)" 
+                class="w-full bg-choco text-white px-5 py-3.5 rounded-2xl shadow-xl flex items-center justify-between border border-white/10 active:scale-[0.98] transition-transform">
+            <div class="flex items-center gap-3">
+                <span id="floating-item-count" class="bg-berry text-white text-xs font-bold px-2.5 py-1 rounded-lg">0 items</span>
+                <span class="font-medium text-sm">View Your Box</span>
+            </div>
+            <div class="flex items-center gap-2 font-heading font-bold text-base">
+                <span id="floating-total-price">₹0</span>
+                <i class="fa-solid fa-chevron-right text-xs text-blushDark"></i>
+            </div>
+        </button>
+    </div>
+
+    <!-- ==================== SLIDE-OUT SHOPPING CART DRAWER ==================== -->
+    <div id="cart-overlay" onclick="toggleCart(false)" 
+         class="fixed inset-0 bg-choco/40 backdrop-blur-xs z-50 hidden opacity-0 transition-opacity duration-300"></div>
+
+    <aside id="cart-drawer" 
+           class="fixed top-0 right-0 h-full w-full sm:w-[420px] bg-cream z-50 shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col">
+        
+        <!-- Drawer Header -->
+        <div class="px-6 py-4 bg-white border-b border-blushDark/50 flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+                <i class="fa-solid fa-bag-shopping text-berry text-lg"></i>
+                <h3 class="font-heading text-xl font-bold text-choco">Your Sweet Box</h3>
+            </div>
+            <button onclick="toggleCart(false)" aria-label="Close Cart"
+                    class="w-9 h-9 rounded-full bg-blush/60 hover:bg-blush text-choco flex items-center justify-center transition-colors">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <!-- Cart Items List -->
+        <div id="cart-items-container" class="flex-1 overflow-y-auto p-5 space-y-3.5">
+            <!-- Empty State or Cart Items rendered here -->
+        </div>
+
+        <!-- Cart Footer / Checkout Form -->
+        <div id="cart-footer" class="bg-white border-t border-blushDark/60 p-5 space-y-4 hidden">
+            <!-- Customer Details Inputs -->
+            <div class="space-y-2.5">
+                <div>
+                    <label for="customer-name" class="block text-xs font-medium text-choco mb-1">Your Name <span class="text-berry">*</span></label>
+                    <input type="text" id="customer-name" placeholder="e.g., Ayesha Khan" 
+                           class="w-full px-3.5 py-2 text-sm bg-cream border border-blushDark rounded-xl focus:outline-none focus:border-berry text-choco">
+                </div>
+                <div>
+                    <label for="order-note" class="block text-xs font-medium text-choco mb-1">Delivery Area / Special Note (Optional)</label>
+                    <input type="text" id="order-note" placeholder="e.g., Banjara Hills / Eggless / Pickup at 5 PM" 
+                           class="w-full px-3.5 py-2 text-sm bg-cream border border-blushDark rounded-xl focus:outline-none focus:border-berry text-choco">
+                </div>
+            </div>
+
+            <!-- Bill Summary -->
+            <div class="bg-blush/40 p-3.5 rounded-2xl space-y-1.5">
+                <div class="flex justify-between text-xs text-chocoLight">
+                    <span>Items Subtotal</span>
+                    <span id="cart-subtotal">₹0</span>
+                </div>
+                <div class="flex justify-between text-xs text-chocoLight">
+                    <span>Packaging</span>
+                    <span class="text-emerald-700 font-medium">Complimentary</span>
+                </div>
+                <div class="border-t border-blushDark/60 pt-1.5 flex justify-between items-center font-heading font-bold text-lg text-choco">
+                    <span>Grand Total</span>
+                    <span id="cart-grand-total" class="text-berry">₹0</span>
+                </div>
+            </div>
+
+            <!-- Primary CTA: Order via Instagram DM -->
+            <button onclick="checkoutViaInstagram()" 
+                    class="w-full bg-gradient-to-r from-[#E1306C] via-[#C13584] to-[#833AB4] hover:opacity-95 text-white font-medium py-3.5 px-5 rounded-2xl shadow-lg flex items-center justify-center gap-2.5 transition-all active:scale-[0.98]">
+                <i class="fa-brands fa-instagram text-xl"></i>
+                <span>Order via Instagram 
